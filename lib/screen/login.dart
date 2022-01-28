@@ -11,6 +11,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final loginform = GlobalKey<FormState>();
+  final lgController = TextEditingController()..text = 'shyam123';
+  final passController = TextEditingController()..text = 'shyam123';
 
   String uname = '';
   String pass = '';
@@ -36,6 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 30),
                 TextFormField(
+                  controller: lgController,
                   onSaved: (value) {
                     uname = value!;
                   },
@@ -47,6 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 30),
                 TextFormField(
+                  controller: passController,
                   onSaved: (newValue) {
                     pass = newValue!;
                   },

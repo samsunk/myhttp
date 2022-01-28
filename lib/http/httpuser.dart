@@ -6,7 +6,7 @@ import 'package:myhttp/response/user_resp.dart';
 
 class HttpConnectUser {
   String baseurl = 'http://10.0.2.2:3000/api/v1/';
-  String token = '';
+  static String token = '';
 
   //sending data to the server--- creating user
   Future<bool> registerPost(User user) async {
@@ -43,8 +43,7 @@ class HttpConnectUser {
 
       //json serializing inline
       final jsonData = jsonDecode(response.body) as Map;
-      // bool val = jsonData['sucess'];
-      // print(jsonData['token']);
+     
       token = jsonData['token'];
 //merotoken = jsonData['token'];
 
