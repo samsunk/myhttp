@@ -71,8 +71,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     var res = await loginPost(uname, pass);
                     if (res) {
                       Navigator.pushNamed(context, '/add_student');
-                      MotionToast.success(description: 'Login Successfull')
-                          .show(context);
+                      MotionToast.success(
+                        description: 'Login Successfull',
+                        toastDuration: const Duration(seconds: 1),
+                      ).show(context);
                     } else {
                       MotionToast.success(description: 'Login UnSuccessfull')
                           .show(context);

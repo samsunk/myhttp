@@ -152,12 +152,23 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
                   },
                   child: const Text('Add Student'),
                 ),
+                const SizedBox(height: 10),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(double.infinity, 50),
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/display_student');
+                  },
+                  child: const Text('View Student'),
+                ),
               ],
             )),
       ),
     );
   }
 
+//widget to build a bottomsheet for image
   Widget bottomSheet() {
     return Container(
       height: 100,
@@ -201,7 +212,3 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
     );
   }
 }
-
-
-//widget to build a bottomsheet for image
-

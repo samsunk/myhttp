@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:motion_toast/motion_toast.dart';
 import 'package:myhttp/http/httpuser.dart';
 import 'package:myhttp/model/student.dart';
+import 'package:myhttp/response/getstudent_resp.dart';
 
 class HttpConnectStudent {
   final baseurl = 'http://10.0.2.2:3000/api/v1/';
@@ -22,9 +23,9 @@ class HttpConnectStudent {
         'Authorization': 'Bearer $mytoken',
       });
       // need a filename
-      
+
       var ss = filepath.split('/').last;
-    // adding the file in the request
+      // adding the file in the request
       request.files.add(
         http.MultipartFile(
           'file',
@@ -33,7 +34,6 @@ class HttpConnectStudent {
           filename: ss,
         ),
       );
-
 
       var response = await request.send();
       var responseString = await response.stream.bytesToString();
@@ -46,7 +46,7 @@ class HttpConnectStudent {
     return 'something goes wrong';
   }
 
-  void registerStudentPosts(Student student, File? filepath) async {
+  void registerStudentPosts(Student student, File? file) async {
     Map<String, dynamic> studentMap = {
       'fullname': student.fullname,
       'age': student.age.toString(),
@@ -63,14 +63,29 @@ class HttpConnectStudent {
       if (response.statusCode == 201) {
         //uploading image after data inserted of student
 
-        if (filepath != null) {
+        if (file != null) {
           var jsonData = jsonDecode(response.body);
-          uploadImage(filepath.path, jsonData['data']['_id']);
+          uploadImage(file.path, jsonData['data']['_id']);
         }
+
         Fluttertoast.showToast(msg: "Data uploaded successfully");
       }
     } catch (err) {
       log('$err');
+    }
+  }
+
+  Future<List<Student>> getStudents() async {
+    String tok = 'Bearer $mytoken';
+    final response = await http.get(Uri.parse(baseurl + "student/"), headers: {
+      'Authorization': tok,
+    });
+    if (response.statusCode == 200) {
+      var a = ResponseGetStudent.fromJson(jsonDecode(response.body));
+
+      return a.data;
+    } else {
+      throw Exception('Failed to load students');
     }
   }
 }
