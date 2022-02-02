@@ -43,11 +43,11 @@ class HttpConnectUser {
 
       //json serializing inline
       final jsonData = jsonDecode(response.body) as Map;
-     
+
       token = jsonData['token'];
 //merotoken = jsonData['token'];
 
-      if (token.isNotEmpty) {
+      if (jsonData['success']) {
         return true;
       }
     } catch (e) {
@@ -56,4 +56,3 @@ class HttpConnectUser {
     return false;
   }
 }
-

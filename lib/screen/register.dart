@@ -27,6 +27,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
+          
           padding: const EdgeInsets.all(25),
           child: Form(
             key: regform,

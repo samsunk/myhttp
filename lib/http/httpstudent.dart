@@ -38,7 +38,7 @@ class HttpConnectStudent {
       var response = await request.send();
       var responseString = await response.stream.bytesToString();
       if (response.statusCode == 200) {
-        return responseString;
+        return 'ok';
       }
     } catch (err) {
       log('$err');
@@ -47,6 +47,7 @@ class HttpConnectStudent {
   }
 
   void registerStudentPosts(Student student, File? file) async {
+    String s = '';
     Map<String, dynamic> studentMap = {
       'fullname': student.fullname,
       'age': student.age.toString(),
@@ -65,10 +66,11 @@ class HttpConnectStudent {
 
         if (file != null) {
           var jsonData = jsonDecode(response.body);
-          uploadImage(file.path, jsonData['data']['_id']);
+          s = await uploadImage(file.path, jsonData['data']['_id']);
         }
-
-        Fluttertoast.showToast(msg: "Data uploaded successfully");
+        if (s == 'ok') {
+          Fluttertoast.showToast(msg: "Data uploaded successfully");
+        }
       }
     } catch (err) {
       log('$err');

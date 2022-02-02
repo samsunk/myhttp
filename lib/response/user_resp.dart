@@ -8,8 +8,16 @@ class ResponseUser {
     return ResponseUser(
       success: json['success'],
       token: json['token'],
+
+
+
+
+
+
     );
   }
+
+ 
 }
 
 

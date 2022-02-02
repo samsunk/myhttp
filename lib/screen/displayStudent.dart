@@ -19,48 +19,6 @@ class _DisplayStudentScreenState extends State<DisplayStudentScreen> {
     futureStudent = HttpConnectStudent().getStudents();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Student Information'),
-      ),
-      body: FutureBuilder<List<Student>>(
-        future: futureStudent,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return ListView.builder(
-                itemCount: snapshot.data!.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(top: 10.0),
-                    child: ListTile(
-                      title: Text('$index'),
-                      subtitle: Text(
-                        '${snapshot.data![index].fullname} \t ${snapshot.data![index].address}   ',
-                      ),
-                    ),
-
-                    // myCard(snapshot.data![index]),
-                  );
-                }
-                // ListTile(
-                //   title: Text('$index'),
-                //   subtitle: Text(
-                //     '${snapshot.data![index].fullname} \t ${snapshot.data![index].address}   ',
-                //   ),
-                // );
-
-                );
-          } else if (snapshot.hasError) {
-            return Text('${snapshot.error}');
-          }
-          return const CircularProgressIndicator();
-        },
-      ),
-    );
-  }
-
   // desingning custom card widget
   Widget myCard(Student obj) {
     return Container(
@@ -107,8 +65,55 @@ class _DisplayStudentScreenState extends State<DisplayStudentScreen> {
                 ],
               ),
             ),
+            const Positioned(
+              top: 5,
+              right: 10,
+              child: Icon(Icons.delete, color: Colors.red, size: 40),
+            ),
           ],
         ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Student Information'),
+      ),
+      body: FutureBuilder<List<Student>>(
+        future: futureStudent,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: myCard(snapshot.data![index]),
+
+                    //     ListTile(
+                    //   title: Text('$index'),
+                    //   subtitle: Text(
+                    //     '${snapshot.data![index].fullname} \t ${snapshot.data![index].address}   ',
+                    //   ),
+                    // ),
+                  );
+                }
+                // ListTile(
+                //   title: Text('$index'),
+                //   subtitle: Text(
+                //     '${snapshot.data![index].fullname} \t ${snapshot.data![index].address}   ',
+                //   ),
+                // );
+
+                );
+          } else if (snapshot.hasError) {
+            return Text('${snapshot.error}');
+          }
+          return const CircularProgressIndicator();
+        },
       ),
     );
   }

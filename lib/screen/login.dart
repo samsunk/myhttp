@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         toastDuration: const Duration(seconds: 1),
                       ).show(context);
                     } else {
-                      MotionToast.success(description: 'Login UnSuccessfull')
+                      MotionToast.error(description: 'Login UnSuccessfull')
                           .show(context);
                     }
                   },
